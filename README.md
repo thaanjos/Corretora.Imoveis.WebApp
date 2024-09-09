@@ -1,6 +1,3 @@
-# Corretora.Imoveis.WebApp
-
-
 
 # Configurações do projeto
 
