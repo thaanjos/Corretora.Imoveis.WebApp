@@ -1,0 +1,65 @@
+﻿@using Corretora.Imoveis.Core.Authorization;
+@model UsuarioViewModel
+
+
+
+<div class="container mt-5 container-ghost">
+    <h4>
+        Cadastro Usuário
+    </h4>
+    <hr />
+    @* <div class="form-cadastro-usuario mt-3 col-lg-6"> *@
+    <form class ="form-contato-sugestao mt-3 col-lg-6 catalog-inclui" asp-action="SalvarUsuario" asp-controller="Usuario" method="post" enctype="multipart/form-data">
+
+        <input id="txtCodigo" type="hidden" asp-for="Id_CadastroUsuario" />
+        <h5 class="texto teal"> Cadastre seu Usuario</h5>
+
+
+        <div class ="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="Nome" type="text" id="txtNome" class="form-control ag-field-input ag-input-color-cinze-full"  autocomplete="off" required />
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2" >Nome Completo</label>
+        </div>
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="Usuario" type="text" id="txtUsuario" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Login</label>
+        </div>
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="Password" type="text" id="txtPassword" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Senha</label>
+        </div>
+
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="Email" type="text" id="txtEmail" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">E-mail</label>
+        </div>
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="Celular" type="text" class="form-control ag-field-input ag-input-color-cinze-full" id="phoneNumber" placeholder="(99) 999-9999" />
+            <label class="form-label text-semi-bold-light ag-field-label" for="phoneNumber">Numero</label>
+        </div>
+
+
+        <div class="mt-5">
+
+            <button type="submit" class="btn btn-teal ms-4">Cadastra</button>
+            <button type="button" class="btn btn-voltar ms-1">Voltar</button>
+
+
+        </div>
+
+    </form>
+</div>
+
+@section Scripts{
+    <script src="~/js/Usuario/usuario.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#phoneNumber').mask('(00) 000-0000');
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+}

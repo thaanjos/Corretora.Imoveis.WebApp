@@ -1,0 +1,66 @@
+﻿@using Corretora.Imoveis.Core.Models.Imovel;
+
+@model ImovelLista
+@{
+    Layout = "_Layout";
+}
+
+<div class="container container-ghost mt-5">
+
+    <div class="col-lg-12 d-inline-flex">
+        <h4 class="col-lg-10">Imoveis </h4>
+
+            <a type="button" class="btn btn-teal col-lg-2 ms-2" asp-controller="Imovel" asp-action="IncluirImovel">Incluir imoveis</a>     
+    </div>
+    <hr />
+
+</div>
+
+
+<div class="container mt-5 mb-5 ">
+
+    <form>
+        <table class="table table-administrativo table-container">
+            <thead class="table-ll">
+                <tr>
+                    <td>Código</td>
+                    <td>Tipo</td>
+                    <td>Descrição</td>
+                    <td>Data</td>
+                    <td>Valor Imovel</td>
+                    <td>Valor documentação</td>
+                    <td>Financiamento </td>
+                    <td>Observação</td>
+                    <td>Cep</td>                
+                    <td>Açoes </td>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var imovel in Model.ListaImoveis)
+                {
+                    <tr class="table-tr">
+                        <td> @imovel.IdImovel</td>
+                        <td> @imovel.Tipo</td>
+                        <td> @imovel.Descricao</td>
+                        <td> @imovel.DataPlubicacao.ToString("dd/MM/yyyy")</td>
+                        <td> @imovel.ValorImovel.ToString("C", new System.Globalization.CultureInfo("pt-BR"))</td>
+                        <td> @imovel.ValorEstimadoDocumentacao.ToString("C", new System.Globalization.CultureInfo("pt-BR"))</td>
+                        <td> @imovel.AceitaFinanciamento</td>
+                        <td> @imovel.Observacao</td>
+                        <td> @imovel.Cep</td>
+                        <td>
+                            <div class="d-flex flex-wrap">
+                                <button class="btn btn-secondary ms-1" asp-controller="Imovel" asp-action="EditarImovel" asp-route-id="@imovel.IdImovel">Editar</button>
+                                <button class="btn btn-danger ms-1" asp-controller="Imovel" asp-action="ExcluirImovel" asp-route-id="@imovel.IdImovel">Excluir</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </form>
+
+
+</div>

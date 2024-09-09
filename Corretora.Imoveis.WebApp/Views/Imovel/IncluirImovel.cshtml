@@ -1,0 +1,134 @@
+﻿@model ImovelViewModel
+@{
+    Layout = "_Layout";
+}
+
+<div class=" container container-ghost mt-5">
+
+    <h4>Incluir Imovel</h4>
+    <hr />
+
+    <form class="form-contato-sugestao mt-3 col-lg-6 catalog-inclui" asp-action="SalvarImovel" asp-controller="Imovel" method="post" enctype="multipart/form-data">
+
+
+        <input id="txtCodigo" type="hidden" asp-for="IdImovel" />
+
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="Tipo" type="text" id="txtTipo" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Tipo do Imovel</label>
+        </div>
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <textarea id="txtDescricao" asp-for="Descricao" class="form-control ag-field-input ag-input-color-cinze-full catalog-inclui" autocomplete="off" required style="height: 160px;">
+
+            </textarea>
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Descrição</label>
+        </div>
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="DataPlubicacao" type="date" id="txtData" class="form-control ag-field-input ag-input-color-cinze-full " autocomplete="off" />
+        </div>
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">           
+            <input asp-for="ValorImovel" type="text" required maxlength="15" class="form-control ag-field-input ag-input-color-cinze-full" onkeypress="return(moeda(this,'.',',',event))">
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2" >Valor Imovel(R$)</label>
+        </div>
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="ValorEstimadoDocumentacao" type="text" required maxlength="15" class="form-control ag-field-input ag-input-color-cinze-full" onkeypress="return(moeda(this,'.',',',event))">
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Valor da Documentação(R$)</label>
+        </div>
+
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="AceitaFinanciamento" type="text" id="txtAceitaFinanciamento" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Aceita Financiamento</label>
+        </div>
+
+
+        <h6>Ambientes</h6>
+        <div style="display: inline-flex;">
+            <div class="form-outline mb-4 ag-field-content catalog-inclui col-lg-2">
+                <input asp-for="Quarto" type="text" id="textQuarto" class="form-control ag-field-input ag-input-color-cinze-full " autocomplete="off" required />
+                <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Quarto</label>
+            </div>
+            <div class="form-outline mb-4 ag-field-content col-lg-2">
+                <input asp-for="Banheiro" type="text" id="textBanheiro" class="form-control ag-field-input ag-input-color-cinze-full " autocomplete="off" required />
+                <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Banheiro</label>
+            </div>
+            <div class="form-outline mb-4 ag-field-content col-lg-2">
+                <input asp-for="Garagem" type="text" id="textGaragem" class="form-control ag-field-input ag-input-color-cinze-full " autocomplete="off" required />
+                <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Garagem</label>
+            </div>
+            <div class="form-outline mb-4 ag-field-content col-lg-2">
+                <input asp-for="AreaUtil" type="text" id="textAreaUtil" class="form-control ag-field-input ag-input-color-cinze-full " autocomplete="off" required />
+                <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Área Útil</label>
+            </div>
+        </div>
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="Observacao"type="text" id="txtObservacao" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Observação</label>
+        </div>
+
+       
+    
+
+            <div class="mb-5">
+             <a><span id="lblQtdAnexos">( 0 )</span>&nbsp; Image adicionada</a>
+             <button type="button" class="btn btn-teal ms-3" onclick="onClickCarregarImagens(this)">Carregar Image</button>
+             <input id="btnCarregarImagens" onchange="onChangeImagens(this)" class="d-none" asp-for="Anexos" type="file" multiple>
+            </div>
+
+            <div class="form-outline mb-4 ag-field-content catalog-inclui">
+              <input asp-for="Cep" type="text" id="txtCep" class="form-control ag-field-input ag-input-color-cinze-full valida-campos-obrigatorios" data-mask="00000-000" minLength="4" autocomplete="off" required />
+              <label id="txtCepLabel" class="form-label text-semi-bold-light ag-field-label" for="txtCep">CEP*</label>
+            </div>
+
+            <div class="form-outline mb-4 ag-field-content catalog-inclui">
+              <input asp-for="Logadouro" type="text" id="txtLogradouro" class="form-control ag-field-input ag-input-color-cinze-full " autocomplete="off" required />
+              <label id="txtLogradouroLabel" class="form-label text-semi-bold-light ag-field-label" for="txtLogradouro">Rua</label>
+            </div>
+
+
+             <div class="form-outline mb-4 ag-field-content catalog-inclui">
+              <input asp-for="Cidade" type="text" id="txtCidade" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+              <label class="form-label text-semi-bold-light ag-field-label" for="txtCidade">Cidade</label>
+             </div>
+
+             <div class="form-outline mb-4 ag-field-content catalog-inclui">
+              <input asp-for="Bairro" type="text" id="txtBairro" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+              <label class="form-label text-semi-bold-light ag-field-label" for="txtBairro">Bairro</label>
+            </div>
+ 
+            <div class="form-outline mb-4 ag-field-content catalog-inclui">
+              <input asp-for="Numero" type="text" id="txtNumero" class="form-control ag-field-input ag-input-color-cinze-full" data-mask="0000000" autocomplete="off" required />
+              <label class="form-label text-semi-bold-light ag-field-label" for="txtNumero">Nº</label>
+            </div>
+      
+            <div class="form-outline mb-4 ag-field-content catalog-inclui">
+              <input asp-for="UF" type="text" id="txtUF" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+              <label class="form-label text-semi-bold-light ag-field-label" for="txtUF">UF</label>
+            </div>
+           
+
+        <div class="mt-5">
+            <button type="submit" class="btn btn-teal ms-4">Publicar</button>
+            <button type="button" class="btn btn-voltar ms-2">Voltar</button>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <script src="~/js/Imovel/imovel.js" asp-append-version="true"></script>
+    <script src="~/js/Imovel/CadastroImovel.js" asp-append-version="true"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('#data-mask').mask('00000-000');
+        });
+    </script>
+  
+}

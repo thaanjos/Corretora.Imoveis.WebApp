@@ -1,0 +1,111 @@
+﻿.my-carousel .captions {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    position: absolute;
+    margin-top: 6%;
+    margin-left: 20%;
+    text-align: center;
+    z-index: 200;
+}
+    .my-carousel .captions h3 {
+        font-size: 30pt;
+        animation: slideOut 1s;
+    }
+
+    .my-carousel .captions p {
+        font-size: 15pt;
+        animation: slideOut 1s;
+    }
+
+    .my-carousel .captions a {
+        margin-top: 5%;
+        align-self: center;
+        background: #00000066;
+        border-radius: 10px;
+        animation: slideIn 1s;
+    }
+
+        .my-carousel .captions a:hover {
+            border-radius: 0;
+            background: #000000AA;
+            color: #14FFEC;
+        }
+
+.subtitle{
+    font-size: 10pt;
+    margin-bottom: 3%;
+}
+
+    .subtitle b {
+        color: #14FFEC;
+    }
+
+    .lines {
+        margin-top: 0.6%;
+        width: 10%;
+        border-top: 1px dashed #ffffff66;
+        margin-left: 1%;
+        margin-right: 1%;
+    }
+
+.my-carousel img {
+    height: 70vh;
+    width: 100%;
+   
+}
+
+.carousel-inner {
+    background: black;
+}
+
+@media only screen and (max-width: 768px) {
+    .my-carousel .captions {
+        margin-top: 15%;
+    }
+    .my-carousel .captions h3 {
+        font-size: 20pt;
+    }
+    .my-carousel .captions p {
+        font-size: 12pt;
+    }
+
+
+}
+
+/*-----------Animações----------*/
+
+:root{
+    --distance: 100px;
+    --distanceReverse: -100px;
+}
+
+[data-anime] {
+    opacity: 0;
+    transition: all 1s;
+    margin-top: 100px;
+}
+
+[data-anime="bottom"] {
+    transform: translate3d(0, var(--distance), 0);
+}
+
+[data-anime="right"] {
+    transform: translate3d(var(--distance), 0, 0);
+}
+
+[data-anime="left"] {
+    transform: translate3d(var(--distanceReverse), 0, 0);
+}
+
+[data-anime].animate {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+slideshow-container {
+    max-width: 1500%;
+    position: relative;
+    margin: auto;
+}
+

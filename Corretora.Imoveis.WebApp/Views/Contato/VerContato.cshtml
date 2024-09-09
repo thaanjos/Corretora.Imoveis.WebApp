@@ -1,0 +1,39 @@
+﻿@using Corretora.Imoveis.Core.Models.Contato;
+
+@model Contato
+
+
+@{
+
+    ViewData["Title"] = "Contato";
+}
+
+<div class="mt-5 mb-5 container container-ghost">
+
+    <div class="col-lg-12 d-inline-flex">
+        <h4 class="col-lg-10">Detalhes das Solicitaçoes de Contato</h4>
+    </div>
+    <hr />
+
+    <div class="mt-5 col-lg-12 d-sm-inline-flex">
+
+            <div class="mt-2 container-ghost">
+
+            <p><b>Codigo do Imovel interessado :</b> @Model.IdImovel</p>
+                <p><b>Nome:</b> @Model.Nome</p>
+                <p><b>Celular:</b> @Model.Celular</p>
+                <p><b>E-mail:</b> @Model.Email</p>
+                <p><b>Messagem:</b> @Model.Messagem</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts{
+    <script src="~/js/Contato/listacontato.js" asp-append-version="true"></script>
+
+}

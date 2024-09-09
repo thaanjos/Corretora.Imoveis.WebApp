@@ -1,0 +1,84 @@
+﻿@using Corretora.Imoveis.Core.Models.Authentication;
+@model LoginModel
+@{
+    Layout = "";
+    ViewData["Title"] = "Login - Corretora.Imoveis";
+}
+
+<!DOCTYPE html>
+<html lang="pt-br" class="fundo-login">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/image-css.css" asp-append-version="true" />
+
+</head>
+<body class="fundo-login">
+    <header class="">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="color: #BFF6C3;" asp-area="" asp-controller="Home" asp-action="Index" method="post" enctype="multipart/form-data">Corretora de Iomoveís </a>
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="d-sm-block">
+        <div class=" container-fluid" style="padding-left: 10%; max-width: 900px; position: fixed;">
+            <h3 class="mt-5 text-semi-bold-light top-form-login">Acesse sua conta</h3>
+            <form class="col-9 col-sm-4 col-lg-6 mt-5 " asp-controller="Home" asp-action="Logar" method="post">
+                <!-- Email input -->
+                <div class="form-outline mb-4 ag-field-content catalog-inclui" style="color: ghostwhite;">
+                    <input asp-for="UserName" type="text" id="txtUserNameLogin" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+                    <label class="form-label text-semi-bold-light ag-field-label" for="form2Example1">Usuário</label>
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4 ag-field-content catalog-inclui" style="color: ghostwhite;">
+                    <input asp-for="Password" type="text" id="txtUserNameLogin" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+                    <label class="form-label text-semi-bold-light ag-field-label" for="form2Example1">Senha</label>
+                </div>
+                <!-- 2 column grid layout for inline styling -->
+                <div class="row mb-4">
+                    <div class="col d-flex ">
+                        <!-- Checkbox -->
+                        <div class="form-check">
+                            <label class="form-check-label" for="chkLembrarMe" style="color:#BFF6C3;"> Lembrar-me </label>
+                            <input class="form-check-input form-checkbox-input" type="checkbox" value="" id="chkLembrarMe" checked />
+
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <!-- Simple link -->
+                        <a href="#!" class="link-redirect-orange link-redirection-simple" style="color:#BFF6C3;">Esqueceu sua senha ?</a>
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <button id="btnLogar" type="submit" class="btn btn-teal ms-4">Acessar</button>
+
+
+                <!-- Register buttons -->
+                <div class="text-center" style="color:#BFF6C3;">
+                    <p>Não tem uma conta ? <a asp-controller="Usuario" asp-action="CadastroUsuario" id="lblCriarConta" class="link-redirect-orange link-redirection-simple" onclick="redirectCadastro()"> <b style="color:#BFF6C3;">Crie agora</b></a></p>
+                </div>
+            </form>
+        </div>
+
+
+        <div id="pnlMsgTryLogin" class="message-warning d-none" style="height: unset !important;">
+            <h4 id="msgTryLoginUser" class="text-semi-bold-orange mt-3">Usuário ou senha inválidos</h4>
+        </div>
+    </div>
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/UtilAjax.js" asp-append-version="true"></script>
+  
+</body>
+</html>

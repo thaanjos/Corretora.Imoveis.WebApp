@@ -1,0 +1,106 @@
+﻿
+@using Corretora.Imoveis.Core.Models.Imovel;
+
+
+@model Imovel;
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Imovel";
+}
+
+<div class="mt-5 mb-5 container container-ghost">
+
+    <div class="col-lg-10 d-inline-flex">
+        <h5 class="col-lg-10">@Model.Tipo</h5>
+    </div>
+    <hr />
+    <div class="mt-5 col-lg-12 d-sm-inline-flex">
+
+        <!--Slides imagens-->
+        <div class="col-lg-6">
+            <div class="slideshow-container">
+
+                @if (Model.Imagens?.Any() ?? false)
+                {
+                    @foreach (var img in Model.Imagens)
+                    {
+                        var imgBase64 = img.AnexoBase64;
+
+                        <div class="mySlides">
+                            <img src="data:image/png;base64,@imgBase64" style="width:100%; border-radius: 50px; height: 500px !important;">
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center" style="height: 500px; display: flex;  align-items: center;place-content: center;">
+                        <h4 class="">Não há imagens para exibição</h4>
+                    </div>
+                }
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        </div>
+
+        <div class="col-lg-7 container-ghost pnl-descricao-trabalho ">
+
+            <p><b>Descrição do Imovel:</b></p>
+            <h5 class="mb-4">@Model.Descricao</h5>
+
+            <p><b>Observacao:</b></p>
+            @* <h5 class="mb-4">@Model.Observacao</h5> *@
+
+            <p><b>Ambiente</b></p>
+            <div class="d-flex">
+                <small style="overflow-wrap: break-word; color: #98EECC;">
+                    <img style="width: 40px; height: 40px;" src="~/Imgs/area.png">
+                    <b>@Model.AreaUtil</b>
+
+                </small>
+                <small style="overflow-wrap: break-word; color: #98EECC">
+                    <img style="width: 40px; height: 40px;" src="~/Imgs/quarto.jpg">
+                    <b>@Model.Quarto</b>
+
+                </small>
+                <small style="overflow-wrap: break-word; color: #98EECC; margin-left: 5px;">
+                    <img style="width: 40px; height: 40px;" src="~/Imgs/chuveiro.jpg">
+                    <b>@Model.Banheiro</b>
+
+                </small>
+                <small style="overflow-wrap: break-word; color: #98EECC; margin-left: 15px;">
+                    <img style="width: 40px; height: 40px;" src="~/Imgs/carro.jpg">
+                    <b>@Model.Garagem</b>
+
+                </small>
+
+            </div>
+         @*    <h6>@Model.Quarto - @Model.Banheiro - @Model.Garagem - @Model.AreaUtil</h6> *@
+
+            <p><b>Endereço:</b></p>
+            <h6 class="mb-4">@Model.Logadouro - @Model.Bairro - @Model.Numero - @Model.Cidade/@Model.UF - @Model.Cep</h6>
+      
+            <p><b>Aceita Financiamento:</b></p>
+            <h5 class="mb-3 " style="word-wrap: break-word;">@Model.AceitaFinanciamento</h5>
+
+            <span class="inline-text mb-4" style=" color: #BFF6C3 !important;"><b>Valor da Documentação:</b></span>
+            <span class="inline-text" style="word-wrap: break-word;">@Model.ValorEstimadoDocumentacao.ToString("C", new System.Globalization.CultureInfo("pt-BR"))</span>
+            <span class="inline-text" style="color: #BFF6C3 !important;"><b>Valor do Imovel:</b></span>
+            <span class="inline-text">@Model.ValorImovel.ToString("C", new System.Globalization.CultureInfo("pt-BR"))</span>
+
+            <p><b>Data da publicação:</b></p>
+            <h5 class="mb-4">@Model.DataPlubicacao.ToString("dd/MM/yyyy")</h5>
+        </div>
+     
+    </div>
+
+ 
+    
+    <a class="btn-teal" style=" margin-top: -4px;   margin-left: 50%;" asp-controller="Contato" asp-action="InserirContato" asp-route-id="@Model.IdImovel">Entrar em Contato</a>
+
+ </div>
+
+@section Scripts{
+    <script src="~/js/Imovel/listaImovel.js" asp-append-version="true"></script>
+
+
+}

@@ -1,0 +1,17 @@
+﻿@model MessageViewModel
+
+
+
+@if (Model != null)
+{
+    <div class="message-warning">
+        <h4 class="text-semi-bold-orange mt-3">@Model.Message</h4>
+        <p>@Model.TextoInformativo</p>
+    </div>
+}
+else
+{
+    <div class="message-warning">
+        <h4 class="text-semi-bold-orange mt-3">A operação não pôde ser concluída! Tente novamente mais tarde.</h4>
+    </div>
+}

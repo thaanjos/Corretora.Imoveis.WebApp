@@ -1,0 +1,216 @@
+﻿@using Newtonsoft.Json;
+@using Corretora.Imoveis.Core.Models.Imovel;
+@using Corretora.Imoveis.Core.Extensions;
+
+
+@model ImovelLista
+@{
+    Layout = "_Layout";
+}
+
+
+@await Html.PartialAsync("Partials/_CarrouselPartial")
+
+
+<div class="container mt-5 mb-5">
+    @* <div class="col-lg-12 d-inline-flex">
+    <div class="col-lg-10">
+    <h4>Imoveis</h4>
+    </div>
+    <div class="col-lg-2" style="text-align-last: center;">
+    <a class="btn-teal" asp-controller="Imovel" asp-action="NovoImovel">Novo Imovel</a>
+    </div>
+    </div>
+    <hr /> *@
+
+
+    <form class="mt-5 pb-2" asp-controller="Imovel" asp-action="FiltrarImoveis">
+
+
+        <div class="busca-total col-lg-12">
+
+            <div class="d-flex flex-wrap col-lg-12">
+                <div class="titulo-buscar col-lg-2" style="    width: 175px;
+    height: 202px;
+    padding: 58px 0;
+    float: left;
+    position: relative;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    line-height: 28px;
+    background-color: #BFF6C3;">
+
+                    <div>
+                        <span style="color: white;">
+                            Encontre
+                            <br>
+                            <small>
+                                aqui o seu
+                                <br>
+                                <small>Imovel</small>
+                            </small>
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-10">
+
+                    <div class="d-flex col-lg-12" style="justify-content: center;  ">
+
+                        <div class="form-outline ag-field-content catalog-inclui col-lg-3 ">
+                            <select asp-for="Tipo" type="text" class="form-control ag-field-input ag-input-color-cinze-full catalog-inclui" value="0">
+                                <option value="0" selected>Tipo de imóvel</option>
+
+                                @foreach (var tipo in Model.ListaImoveis)
+                                {
+                                    <option value="@(tipo.Tipo)">@tipo.Tipo</option>
+                                }
+
+                            </select>
+                        </div>
+                        <div class="col-lg-3 ms-2 ">
+                            <div class="form-outline  ag-field-contentt catalog-inclui " style="">
+                                <input asp-for="ValorDe" selected required class="form-control ag-field-input ag-input-color-cinze-full catalog-inclui" autocomplete="off" onkeypress="return(moeda(this,'.',',',event))">
+                                <label class="form-label  ag-field-label" style=" color: #BFF6C3;">Valor do Imovel Imovel</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 ms-2" style="">
+                            <div class="form-outline mb-4 ag-field-contentt catalog-inclui ">
+                                <input asp-for="ValorAte" selected required class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" onkeypress="return(moeda(this,'.',',',event))">
+                                <label class="form-label  ag-field-label" style="  color: #BFF6C3;">Valor do Imovel Imovel</label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="d-flex col-lg-12" style="justify-content: center">
+
+                        <div class="col-lg-3 " style="">
+                            <div class="form-outline mb-4 ag-field-contentt catalog-inclui">
+                                <select asp-for="Cidade" type="text" class="form-control ag-field-input ag-input-color-cinze-full catalog-inclui" value="0">
+                                    <option value="0" selected>Cidades</option>
+
+                                    @foreach (var cidade in Model.ListaImoveis)
+                                    {
+                                        <option value="@(cidade.Cidade)">@cidade.Cidade</option>
+                                    }
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3" style="">
+                            <div class="form-outline ms-2 mb-4 ag-field-contentt catalog-inclui">
+                                <select asp-for="UF" type="text" class="form-control ag-field-input ag-input-color-cinze-full catalog-inclui" value="0">
+                                    <option value="0" selected>Todos estado</option>
+
+                                    @foreach (var uf in Model.ListaImoveis)
+                                    {
+                                        <option value="@(uf.UF)">@uf.UF</option>
+                                    }
+
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mt-4" style="display: flex;    justify-content: end;">
+                            <button type="submit" id="" class="btn btn-teal-imovel col-lg-2 ms-2  " style="height: 40px">Buscar</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </form>
+
+
+
+    @if (Model?.ListaImoveis?.Any() ?? false)
+    {
+        <!--servicos realizados Normal-->
+        <form class="mt-5 pb-5 justify-content-center">
+
+            <div class="col-lg-12 d-sm-inline-flex" style="flex-wrap: wrap; place-content: center; ">
+
+                @foreach (var imovel in Model.ListaImoveis)
+                {
+
+                    <div class="card-portfolio" onclick="onClickVerImovel(@JsonConvert.SerializeObject(imovel))">
+                        @if (imovel.Imagens?.Any() ?? false)
+                        {
+                            var imagem = @imovel.Imagens?.FirstOrDefault();
+                            <img src="data:image/png;base64,@imagem.AnexoBase64" style="width: 100%; height: 65%;" />
+                        }
+                        else
+                        {
+                            <img src="~/imgs/sem-imagem.png" style="width: 100%; height: 65%;" />
+                        }
+
+                        <p class="mt-1" style="overflow-wrap: break-word; color: white"><b>@imovel.Descricao.ObterTextoSimplificado(40)</b></p>
+
+                        <div style="display: grid;">
+                            <div class="d-flex">
+                                <small style="overflow-wrap: break-word; color: #98EECC;">
+                                    <img style="width: 40px; height: 40px;" src="~/Imgs/area.png">
+                                    <b>@imovel.AreaUtil</b>
+
+                                </small>
+                                <small style="overflow-wrap: break-word; color: #98EECC">
+                                    <img style="width: 40px; height: 40px;" src="~/Imgs/quarto.jpg">
+                                    <b>@imovel.Quarto</b>
+
+                                </small>
+                                <small style="overflow-wrap: break-word; color: #98EECC; margin-left: 5px;">
+                                    <img style="width: 40px; height: 40px;" src="~/Imgs/chuveiro.jpg">
+                                    <b>@imovel.Banheiro</b>
+
+                                </small>
+                                <small style="overflow-wrap: break-word; color: #98EECC; margin-left: 15px;">
+                                    <img style="width: 40px; height: 40px;" src="~/Imgs/carro.jpg">
+                                    <b>@imovel.Garagem</b>
+
+                                </small>
+
+                            </div>
+                            <b style="overflow-wrap: break-word; color: #BFF6C3">@imovel.ValorImovel.ToString("C", new System.Globalization.CultureInfo("pt-BR"))</b>
+                            <a class="btn-teal" style="width: 50%; font-size: 12px; line-height: 1rem; margin-top: 1rem;" asp-controller="Contato" asp-action="InserirContato" asp-route-id="@imovel.IdImovel">Entrar em Contato</a>
+
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </form>
+    }
+    else
+    {
+        <div class="center-text container pt-5">
+            <div class="message-warning">
+                <h4 class="text-semi-bold-orange mt-3">Não foi encontrado nenhum registro !</h4>
+            </div>
+        </div>
+    }
+
+
+</div>
+
+@section Scripts{
+    <script src="~/js/Imovel/listaImovel.js" asp-append-version="true"></script>
+    <script src="~/js/Imovel/imovel.js" asp-append-version="true"></script>
+    <script src="~/js/Imovel/CadastroImovel.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/Componentes/carousel.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('#data-mask').mask('00000-000');
+        });
+    </script>
+}

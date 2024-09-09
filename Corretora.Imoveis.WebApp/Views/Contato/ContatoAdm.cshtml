@@ -1,0 +1,55 @@
+﻿@using Corretora.Imoveis.Core.Models.Contato;
+
+@model ContatoLista
+
+@{
+    
+        Layout = "_layout";
+    
+}
+
+
+<div class="container container-ghost mt-5">
+
+    <div class="col-lg-12 d-inline-flex">
+        <h4 class="col-lg-10">Solicitações de Contatos</h4>
+    </div>
+    <hr class=" mb-5" />
+    <form>
+
+        <table class="table table-administrativo table-container">
+            <thead class="table-ll">
+                <tr>
+                    <td>Código</td>
+                    <td>IdImovel</td>
+                    <td>Nome</td>
+                    <td>Celular</td>
+                    <td>Email</td>
+                    <td>Messagem</td>         
+                    <td>Ação</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var contato in Model.ListaContatos)
+                {
+                    <tr class="table-tr">
+                        <td> @contato.IdContato</td>
+                        <td> @contato.IdImovel</td>
+                        <td> @contato.Nome</td>
+                        <td> @contato.Celular</td>
+                        <td> @contato.Email</td>
+                        <td> @contato.Messagem</td>
+                        <td>
+                            <div class="d-flex flex-wrap">
+                                <button class="btn btn-dark ms-1 mb-1" asp-controller="Contato" asp-action="VerContato" asp-route-id="@contato.IdContato">Ver Contato</button>
+                                <button class="btn btn-danger ms-1 mb-1" asp-controller="Contato" asp-action="ExcluirContato" asp-route-id="@contato.IdContato">Excluir</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </form>
+</div>

@@ -1,0 +1,100 @@
+﻿@model ContatoViewModel
+
+<div class="container mt-5 container-ghost">
+
+    <h4>Fale conosco</h4>
+
+    <small></small>
+    <hr />
+
+
+
+    <form class="form-contato-sugestao mt-3 col-lg-6" asp-controller="Contato" asp-action="SalvarContato" method="post" enctype="multipart/form-data">
+
+        <input asp-for="IdContato" class="d-none" />
+
+
+
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="Nome" type="text" id="txtNome" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Nome</label>
+        </div>
+
+        @* <div class="form-outline mb-4 ag-field-content catalog-inclui">
+        <input asp-for="Celular" type="number" id="txtCelular" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+        <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Celular</label>
+        </div> *@
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="Celular" type="text" class="form-control ag-field-input ag-input-color-cinze-full" id="phoneNumber" placeholder="(99) 999-9999" />
+            <label class="form-label text-semi-bold-light ag-field-label" for="phoneNumber">Numero</label>
+        </div>
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <input asp-for="Email" type="text" id="txtEmail" class="form-control ag-field-input ag-input-color-cinze-full" autocomplete="off" required />
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">E-mail</label>
+        </div>
+
+
+        <div class="form-outline mb-4 ag-field-content catalog-inclui">
+            <textarea id="txtMessagem" asp-for="Messagem" class="form-control ag-field-input ag-input-color-cinze-full catalog-inclui" autocomplete="off" required style="height: 100px;">
+
+            </textarea>
+            <label class="form-label text-semi-bold-light ag-field-label" for="form2Example2">Descreva Messagem</label>
+        </div>
+
+        @if (Model?.IdImovel > 0)
+        {
+            <div class="form-outline mb-4 ag-field-content catalog-inclui ">
+                <select asp-for="IdImovel" id="textImovel" class="form-control ag-field-input ag-input-color-cinze-full">
+                    <option value="0" selected>Selecionar</option>
+                    @foreach (var imovel in Model?.Imovels)
+                    {
+                        <option value="@imovel.IdImovel">@imovel.Descricao</option>
+                    }
+
+                </select>
+
+                <label class="form-label text-semi-bold-light ag-field-label" style="color: #BFF6C3" for="form2Example2">Imovel</label>
+            </div>
+
+        }
+        else
+        {
+            <div class="form-outline mb-4 ag-field-content catalog-inclui d-none">
+                <select asp-for="IdImovel" id="textImovel" class="form-control ag-field-input ag-input-color-cinze-full">
+                    <option value="0" selected>Selecionar</option>
+                    @foreach (var imovel in Model?.Imovels)
+                    {
+                        <option value="@imovel.IdImovel">@imovel.Descricao</option>
+                    }
+
+                </select>
+
+                <label class="form-label text-semi-bold-light ag-field-label" style="color: #BFF6C3" for="form2Example2">Imovel</label>
+            </div>
+        }
+
+
+
+
+
+        <div class="mt-5">
+            <button type="submit" class="btn btn-teal ms-5">Enviar</button>
+            <button type="button" class="btn btn-voltar ms-5">Voltar</button>
+
+        </div>
+
+    </form>
+
+</div>
+@section Scripts{
+    <script src="~/js/Contato/contato.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#phoneNumber').mask('(00) 000-0000');
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+  }
